@@ -1,29 +1,42 @@
 <#
-sprawd≈∫ czy u≈ºytkownik istnieje
-jesli tak
-    pobierz grupy i zapisz w pliku
-je≈õli nie 
-    loguj b≈ÇƒÖd
-    
-sprawd≈∫ czy u≈ºytkownik istnieje 
-je≈õli tak
-    sprawd≈∫ czy jstnieje plik z grupami
-    je≈õli tak
-        zaczytaj grupy z pliku
-        dopuki sƒÖ grupy
-            sprawd≈∫ czy grupa istnieje
-            je≈õli tak
-                sprawd≈∫ czy u≈ºytkownik nale≈ºy do grupy
-                je≈õli nie
-                    dodaj u≈ºytkownika do grupy
-                je≈õli tak
-                    loguj komunikat
-            je≈õli nie 
-                loguj b≈ÇƒÖd
-    je≈õli nie 
-        loguj b≈ÇƒÖd
-je≈õli nie 
-    loguj b≈ÇƒÖd#>
+.SYNOPSIS
+    Skrypt do tworzenia backupu uprawnieÒ uøytkownikÛw.
+
+.DESCRIPTION
+    Problem: StworzyÊ kopiÍ zapasowπ uprawnieÒ uøytkownikÛw (Wymaganie: uprawnienia sπ nadawane dla grup a nie dla uøytkownikÛw.)
+
+    Do skryptu przekazujemy login uøytkownika, ponadto skrypt posiada parametr Action ktÛry moøe mieÊ jednπ z dwÛch wartoúci: Get lub Set. 
+    Wywo≥any z wartoúciπ Get skrypt pobiera wszystkie grupu do ktÛrych naleøy dany uøytkownik i zapisuje ich nazwy w pliku o nazwie identycznej 
+    jak nazwa konta uøytkownika. Wywo≥any z wartoúciπ Set, skrpt sprawdzi czy istnieje plik z kopiπ grup jeúli tak doda uøytkownika do kaødej grup z pliku.
+
+.PARAMETER ADLogin
+    Login uøytkownika. Parametr wymagany.
+
+.PARAMETER Action
+    Rodzaj akcji ktÛrπ ma wykonaÊ skrypt, moøe przyjπÊ dwie wartoúci Get (backup uprawnieÒ) lub Set (przywrÛcenie uprawnieÒ). Parametr wymagany.
+
+.INPUTS
+    None.
+
+.OUTPUTS
+    None.
+
+.NOTES
+    Version:        1.1
+    Author:         Sebastian CichoÒski
+    Creation Date:  11.2023
+    Projecturi:     https://gitlab.com/powershell1990849/backup-srusergroups
+  
+.EXAMPLE
+  Backup-SRUserGroup.ps1 -ADLogin jan.kowalski -Get
+
+  Utworzenie backupu uprawnieÒ w pliku: C:\Temp\userlogin.txt
+
+.EXAMPLE
+  Backup-SRUserGroup.ps1 -ADLogin jan.kowalski -Set
+
+  PrzywrÛcenie uprawnieÒ z pliku : C:\Temp\userlogin.txt
+#>
 
     [CmdletBinding()]
     Param (
@@ -65,7 +78,7 @@ je≈õli nie
             $userGroups =  Get-Content -Path $file -ErrorAction Stop
         }
         catch {
-            Write-Verbose "Cannot find file: $file"
+            Write-Verbose "Cannot find file: $file, use first Backup-SRUserGroups.ps1 with -Get"
         }
         if($userGroups -ne $null) {
             foreach($group in $userGroups) {
@@ -78,7 +91,7 @@ je≈õli nie
                 }
                 if($testGroup -ne $null){
                     Write-Verbose "Add $ADLogin to group: $group"
-                    Add-ADGroupMember -Identity $group -Members $ADLogin
+                    Add-ADGroupMember -Identity $group -Members $ADLogin 
                 } 
             }
         }
