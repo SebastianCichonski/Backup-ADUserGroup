@@ -28,12 +28,12 @@
     Projecturi:     https://gitlab.com/powershell1990849/backup-srusergroups
   
 .EXAMPLE
-  Backup-SRUserGroup.ps1 -ADLogin jan.kowalski -Get
+  Backup-SRUserGroup.ps1 -ADLogin jan.kowalski -Action Get
 
   Utworzenie backupu uprawnieñ w pliku: C:\Temp\userlogin.txt
 
 .EXAMPLE
-  Backup-SRUserGroup.ps1 -ADLogin jan.kowalski -Set
+  Backup-SRUserGroup.ps1 -ADLogin jan.kowalski -Action Set
 
   Przywrócenie uprawnieñ z pliku : C:\Temp\userlogin.txt
 #>
@@ -50,18 +50,7 @@
 
     
     $userTest = $null
-    $userGroups = $null
-    $path = "C:\Temp"
-    $file = Join-Path -Path $path -ChildPath "$ADLogin.txt"
-
-    if($Action -like "Get"){
-        try {
-            $userTest = Get-ADUser -Identity $ADLogin -ErrorAction Stop
-        }
-        catch {
-            Write-Verbose "Cannot find user: $ADLogin in AD."
-        }
-
+    
         if($userTest -ne $null){
             if(-not (Test-Path -Path $path)) {
                 New-Item -Path $path -ItemType Directory | Out-Null
@@ -78,7 +67,7 @@
             $userGroups =  Get-Content -Path $file -ErrorAction Stop
         }
         catch {
-            Write-Verbose "Cannot find file: $file, use first Backup-SRUserGroups.ps1 with -Get"
+            Write-Verbose "Cannot find file: $file, use first Backup-SRUserGroups.ps1 with -Action Get"
         }
         if($userGroups -ne $null) {
             foreach($group in $userGroups) {

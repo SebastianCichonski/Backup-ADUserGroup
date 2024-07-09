@@ -22,14 +22,14 @@ Wywołany z wartością Set, skrypt sprawdzi czy istnieje plik z kopią grup je�
 
 ### EXAMPLE 1
 ```
-Backup-SRUserGroup.ps1 -ADLogin jan.kowalski -Get
+Backup-SRUserGroup.ps1 -ADLogin jan.kowalski -Action Get
 ```
 
 Utworzenie backupu uprawnień w pliku: C:\Temp\jan.kowalski.txt
 
 ### EXAMPLE 2
 ```
-Backup-SRUserGroup.ps1 -ADLogin jan.kowalski -Set
+Backup-SRUserGroup.ps1 -ADLogin jan.kowalski -Action Set
 ```
 
 Przywrócenie uprawnień z pliku : C:\Temp\jan.kowalski.txt
