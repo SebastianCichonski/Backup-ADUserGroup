@@ -50,7 +50,17 @@
 
     
     $userTest = $null
-    
+    $userGroups = $null
+    $path = "C:\Temp"
+    $file = Join-Path -Path $path -ChildPath "$ADLogin.txt"
+
+    if($Action -like "Get"){
+        try {
+            $userTest = Get-ADUser -Identity $ADLogin -ErrorAction Stop
+        }
+        catch {
+            Write-Verbose "Cannot find user: $ADLogin in AD."
+        }  
         if($userTest -ne $null){
             if(-not (Test-Path -Path $path)) {
                 New-Item -Path $path -ItemType Directory | Out-Null
@@ -67,7 +77,7 @@
             $userGroups =  Get-Content -Path $file -ErrorAction Stop
         }
         catch {
-            Write-Verbose "Cannot find file: $file, use first Backup-SRUserGroups.ps1 with -Action Get"
+            Write-Verbose "Cannot find file: $file, use first 'Backup-SRUserGroups.ps1 -ADLogin userLogin -Action Get'"
         }
         if($userGroups -ne $null) {
             foreach($group in $userGroups) {
