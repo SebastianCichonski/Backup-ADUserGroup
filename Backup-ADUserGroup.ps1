@@ -1,19 +1,19 @@
 <#
 .SYNOPSIS
-    Skrypt do tworzenia backupu uprawnieñ u¿ytkowników.
+    Skrypt do tworzenia backupu uprawnieÃ± uÂ¿ytkownikÃ³w.
 
 .DESCRIPTION
-    Problem: Stworzyæ kopiê zapasow¹ uprawnieñ u¿ytkowników (Wymaganie: uprawnienia s¹ nadawane dla grup a nie dla u¿ytkowników.)
+    Problem: StworzyÃ¦ kopiÃª zapasowÂ¹ uprawnieÃ± uÂ¿ytkownikÃ³w (Wymaganie: uprawnienia sÂ¹ nadawane dla grup a nie dla uÂ¿ytkownikÃ³w.)
 
-    Do skryptu przekazujemy login u¿ytkownika, ponadto skrypt posiada parametr Action który mo¿e mieæ jedn¹ z dwóch wartoœci: Get lub Set. 
-    Wywo³any z wartoœci¹ Get skrypt pobiera wszystkie grupu do których nale¿y dany u¿ytkownik i zapisuje ich nazwy w pliku o nazwie identycznej 
-    jak nazwa konta u¿ytkownika. Wywo³any z wartoœci¹ Set, skrpt sprawdzi czy istnieje plik z kopi¹ grup jeœli tak doda u¿ytkownika do ka¿dej grup z pliku.
+    Do skryptu przekazujemy login uÂ¿ytkownika, ponadto skrypt posiada parametr Action ktÃ³ry moÂ¿e mieÃ¦ jednÂ¹ z dwÃ³ch wartoÅ“ci: Get lub Set. 
+    WywoÂ³any z wartoÅ“ciÂ¹ Get skrypt pobiera wszystkie grupu do ktÃ³rych naleÂ¿y dany uÂ¿ytkownik i zapisuje ich nazwy w pliku o nazwie identycznej 
+    jak nazwa konta uÂ¿ytkownika. WywoÂ³any z wartoÅ“ciÂ¹ Set, skrpt sprawdzi czy istnieje plik z kopiÂ¹ grup jeÅ“li tak doda uÂ¿ytkownika do kaÂ¿dej grup z pliku.
 
 .PARAMETER ADLogin
-    Login u¿ytkownika. Parametr wymagany.
+    Login uÂ¿ytkownika. Parametr wymagany.
 
 .PARAMETER Action
-    Rodzaj akcji któr¹ ma wykonaæ skrypt, mo¿e przyj¹æ dwie wartoœci Get (backup uprawnieñ) lub Set (przywrócenie uprawnieñ). Parametr wymagany.
+    Rodzaj akcji ktÃ³rÂ¹ ma wykonaÃ¦ skrypt, moÂ¿e przyjÂ¹Ã¦ dwie wartoÅ“ci Get (backup uprawnieÃ±) lub Set (przywrÃ³cenie uprawnieÃ±). Parametr wymagany.
 
 .INPUTS
     None.
@@ -23,19 +23,19 @@
 
 .NOTES
     Version:        1.1
-    Author:         Sebastian Cichoñski
+    Author:         Sebastian CichoÃ±ski
     Creation Date:  11.2023
-    Projecturi:     https://gitlab.com/powershell1990849/backup-srusergroups
+    Projecturi:     https://
   
 .EXAMPLE
-  Backup-SRUserGroup.ps1 -ADLogin jan.kowalski -Action Get
+  Backup-ADUserGroup.ps1 -ADLogin jan.kowalski -Action Get
 
-  Utworzenie backupu uprawnieñ w pliku: C:\Temp\userlogin.txt
+  Utworzenie backupu uprawnieÃ± w pliku: C:\Temp\userlogin.txt
 
 .EXAMPLE
-  Backup-SRUserGroup.ps1 -ADLogin jan.kowalski -Action Set
+  Backup-ADUserGroup.ps1 -ADLogin jan.kowalski -Action Set
 
-  Przywrócenie uprawnieñ z pliku : C:\Temp\userlogin.txt
+  PrzywrÃ³cenie uprawnieÃ± z pliku : C:\Temp\userlogin.txt
 #>
 
     [CmdletBinding()]
@@ -77,7 +77,7 @@
             $userGroups =  Get-Content -Path $file -ErrorAction Stop
         }
         catch {
-            Write-Verbose "Cannot find file: $file, use first 'Backup-SRUserGroups.ps1 -ADLogin userLogin -Action Get'"
+            Write-Verbose "Cannot find file: $file, use first 'Backup-ADUserGroup.ps1 -ADLogin userLogin -Action Get'"
         }
         if($userGroups -ne $null) {
             foreach($group in $userGroups) {
