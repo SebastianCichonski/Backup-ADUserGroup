@@ -1,5 +1,5 @@
 
-# Backup-SRUserGroups.ps1
+# Backup-ADUserGroup.ps1
 
 ## SYNOPSIS
 Skrypt do tworzenia backupu uprawnień użytkowników.
@@ -22,14 +22,14 @@ Wywołany z wartością Set, skrypt sprawdzi czy istnieje plik z kopią grup je�
 
 ### EXAMPLE 1
 ```
-Backup-SRUserGroup.ps1 -ADLogin jan.kowalski -Action Get
+Backup-ADUserGroup.ps1 -ADLogin jan.kowalski -Action Get
 ```
 
 Utworzenie backupu uprawnień w pliku: C:\Temp\jan.kowalski.txt
 
 ### EXAMPLE 2
 ```
-Backup-SRUserGroup.ps1 -ADLogin jan.kowalski -Action Set
+Backup-ADUserGroup.ps1 -ADLogin jan.kowalski -Action Set
 ```
 
 Przywrócenie uprawnień z pliku : C:\Temp\jan.kowalski.txt
@@ -81,6 +81,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 Version:        1.1\
 Author:         Sebastian Cichoński\
 Creation Date:  11.2023\
-Projecturi:     https://gitlab.com/powershell1990849/backup-srusergroups
+Projecturi:     https://
 
 ## RELATED LINKS
